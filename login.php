@@ -2,6 +2,7 @@
 require_once 'includes/index_header.php';
 include 'connect.php';
 include 'api.php';
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -29,19 +30,39 @@ include 'api.php';
     <input type="submit" name="btnLogin"value="Log In">
     <p>Don't have an account? <a href="signup.php">Register</a></p>
 </form>
-<script>
-    document.getElementById('btnBack').onclick = function() {
-        location.href = 'index.php';
-    };
-</script>
-
 </body>
 </html>
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if (isset($_POST['btnLogin'])) {
-        logIn();
+        $uname=$_POST['txtusername'];
+        $pwd=$_POST['txtpassword'];
+        //check tbluseraccount if username is existing
+        $sql ="Select * from tbluseraccount where username='".$uname."'";
+
+        $result = mysqli_query($connection,$sql);
+
+        $count = mysqli_num_rows($result);
+        $row = mysqli_fetch_array($result);
+
+        if($count == 0){
+            echo "<script language='javascript'>
+                            alert('username not existing.');
+                    </script>";
+        }else if((int)password_verify($pwd, $row[3]) == 0) {
+            echo "<script language='javascript'>
+                            alert('Incorrect password');
+                    </script>";
+        }else{
+            $_SESSION['username']=$row[2];
+            $_SESSION['acctid']=$row[0];
+            echo '<script> location.replace("homepage.php"); </script>';
+        }
     }
 }
+?>
+
+<?php
+require_once 'includes/footer_ejares.php';
 ?>

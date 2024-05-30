@@ -1,5 +1,5 @@
 <?php
-require_once 'includes/header.php';
+require_once 'includes/user_header.php';
 include('connect.php');
 ?>
 
@@ -18,20 +18,24 @@ include('connect.php');
     <body id="bodyGen" style="background-image: url('images/bgLogIn.png');">
     <div style="justify-content: center;">
         <hr style="width: 75%; border-color: white; margin: auto;">
-        <h4 style="color: #b67352; margin-top: 10px; text-align: center;"><b>ENTRIES</b></h4>
+        <h4 style="color: #b67352; margin-top: 10px; text-align: center;"><b>REVIEWS</b></h4>
         <hr style="width: 75%; border-color: white; margin: auto;">
         <?php
-        $mysqli = new mysqli('localhost', 'root','','dbobandof1');
-        $entries = $mysqli->query("SELECT * from tblentry entry INNER JOIN tbluseraccount as ua ON entry.acctid = ua.acctid") or die($mysqli->error);
-        foreach($entries as $entry){
-            echo '<div style="margin: 10px; text-align: center; display: inline-block; line-height: 10px; width: 250px; height: 300px; border: 1px solid black; margin-top: 1.5%; padding: 10px; border-radius: 10px; background-color: white">
-                <h3 style="color: #b67352"><b>'.$entry['username'].'</b></h3>
-                <p style="font-size: 15px">'.$entry['entrycontent'].'</p>
-                <hr style="width: 75%; border-color: black; margin: auto;">
-                <p style="margin-top: 10px;"><b>'.$entry['dateadded']. '</b></p>
-                <hr style="width: 75%; border-color: black; margin: auto;">';
-            echo '</div>';
-        }
+        $mysqli = new mysqli('localhost', 'root','','dbwanderlog');
+        $entries = $mysqli->query("SELECT * from tblreviewlocation entry INNER JOIN tbluseraccount as ua ON entry.acctid = ua.acctid") or die($mysqli->error);
+            foreach($entries as $entry){
+                if($entry['isDeleted'] == 0){
+                    echo '<div style="margin: 10px; text-align: center; display: inline-block; line-height: 10px; width: 400px; height: 300px; border: 1px solid black; margin-top: 1.5%; padding: 10px; border-radius: 10px; background-color: white">
+                        <h1 style="color: #b67352"><b>'.$entry['username'].'</b></h1>
+                        <h3 style="color: #b67352"><b>Country: '.$entry['country'].'</b></h3>
+                        <p style="font-size: 15px">'.$entry['review_content'].'</p>
+                        <hr style="width: 75%; border-color: black; margin: auto;">
+                        <p style="margin-top: 10px;"><b>'.$entry['date_added']. '</b></p>
+                        <hr style="width: 75%; border-color: black; margin: auto;">';
+                    echo '</div>';
+                }
+            
+            }
         ?>
     </div>
 
@@ -39,5 +43,5 @@ include('connect.php');
     </html>
 
 <?php
-require_once 'includes/footer.php';
+require_once 'includes/footer_ejares.php';
 ?>

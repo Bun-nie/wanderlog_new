@@ -1,3 +1,7 @@
+<?php
+require_once 'includes/index_header.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +16,7 @@
 </head>
 <body>
 <div>
-    <img src="Resources/about.png" style="width: 2000px;">
+    <img src="images/about.png" style="width: 2000px;">
 </div>
 
 <h1 style="text-align: center; margin-top: 10px; font-weight: 800;">About Us</h1>
@@ -22,7 +26,7 @@
     <div>
         <img src="https://cdn-icons-png.flaticon.com/512/6833/6833605.png" class="centered-image" style="height: 200px; width: 200px;">
         <br>
-        <img src="Resources/socials.png" class="socials">
+        <img src="images/socials.png" class="socials">
         <h4><b>NICOLE EJARES</b></h4>
         <p>WanderLOG President</p>
         <hr style="width: 25%; margin: 0 auto;">
@@ -34,7 +38,7 @@
     <div>
         <img src="https://cdn-icons-png.flaticon.com/512/6833/6833605.png" class="centered-image" style="height: 200px; width: 200px;">
         <br>
-        <img src="Resources/socials.png" class="socials">
+        <img src="images/socials.png" class="socials">
         <h4><b>GUADALUE NIÑA MARIE L. OBANDO</b></h4>
         <p>WanderLOG Vice-President</p>
         <hr style="width: 25%; margin: 0 auto;">

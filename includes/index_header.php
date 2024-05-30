@@ -13,7 +13,7 @@
 <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom" style="background-color: white">
     <div class="col-md-3 mb-2 mb-md-0" >
         <a href="../index.php" class="d-inline-flex link-body-emphasis text-decoration-none">
-            <img src="../images/icon.png" width="50" height="50" style="margin-left: 50px" alt="Wanderlog">
+            <img src="images/icon.png" width="50" height="50" style="margin-left: 50px" alt="Wanderlog">
             <b style="font-family: 'Lucida Sans'; color: #B67352; font-size: 25px; margin-top: 5px">WanderLOG</b>
         </a>
     </div>

@@ -7,13 +7,13 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel='stylesheet' href='css/style.css'>
+    <!--<link rel='stylesheet' href='css/style.css'>-->
 </head>
 <body>
 <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom" style="background-color: white">
     <div class="col-md-3 mb-2 mb-md-0" >
         <a href="../index.php" class="d-inline-flex link-body-emphasis text-decoration-none">
-            <img src="../images/icon.png" alt="Bootstrap" width="50" height="50" style="margin-left: 50px">
+            <img src="images/icon.png" alt="Bootstrap" width="50" height="50" style="margin-left: 50px">
             <b style="font-family: 'Lucida Sans'; color: #B67352; font-size: 25px; margin-top: 5px">WanderLOG</b>
         </a>
     </div>
@@ -29,9 +29,6 @@
         </li>
         <li>
             <a class="nav-link px-2 link-body-emphasis" href="dashboard.php">Dashboard</a>
-        </li>
-        <li>
-            <a class="nav-link px-2 link-body-emphasis" href="review.php">Reviews</a>
         </li>
         <li>
             <a class="nav-link px-2 link-body-emphasis" href="index.php">Sign Out</a>
