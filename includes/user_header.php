@@ -10,31 +10,31 @@
     <link rel='stylesheet' href='css/style.css'>
 </head>
 <body>
-<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom" style="background-color: white">
     <div class="col-md-3 mb-2 mb-md-0" >
         <a href="../index.php" class="d-inline-flex link-body-emphasis text-decoration-none">
             <img src="../images/icon.png" alt="Bootstrap" width="50" height="50" style="margin-left: 50px">
             <b style="font-family: 'Lucida Sans'; color: #B67352; font-size: 25px; margin-top: 5px">WanderLOG</b>
         </a>
     </div>
-    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" style="margin-left: 50px">
+    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" style="margin-left: 50px;">
         <li>
-            <a class="nav-link px-2 link-body-emphasis" href="../homepage.php">Home</a>
+            <a class="nav-link px-2 link-body-emphasis" href="homepage.php">Home</a>
         </li>
         <li>
-            <a class="nav-link px-2 link-body-emphasis" href="../about.php">About Us</a>
+            <a class="nav-link px-2 link-body-emphasis" href="about.php">About Us</a>
         </li>
         <li>
-            <a class="nav-link px-2 link-body-emphasis" href="../contact.php">Contact Us</a>
+            <a class="nav-link px-2 link-body-emphasis" href="contact.php">Contact Us</a>
         </li>
         <li>
-            <a class="nav-link px-2 link-body-emphasis" href="../dashboard.php">Dashboard</a>
+            <a class="nav-link px-2 link-body-emphasis" href="dashboard.php">Dashboard</a>
         </li>
         <li>
-            <a class="nav-link px-2 link-body-emphasis" href="../review.php">Reviews</a>
+            <a class="nav-link px-2 link-body-emphasis" href="review.php">Reviews</a>
         </li>
         <li>
-            <a class="nav-link px-2 link-body-emphasis" href="../index.php">Sign Out</a>
+            <a class="nav-link px-2 link-body-emphasis" href="index.php">Sign Out</a>
         </li>
     </ul>
 
