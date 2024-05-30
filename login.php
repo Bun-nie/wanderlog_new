@@ -27,7 +27,7 @@ session_start();
     <br>
     <input type="password" id="txtpassword" name="txtpassword" placeholder="Enter your password" required>
     <br>
-    <input type="submit" name="btnLogin"value="Log In">
+    <input type="submit" name="btnLogin" value="Log In">
     <p>Don't have an account? <a href="signup.php">Register</a></p>
 </form>
 </body>
@@ -36,28 +36,42 @@ session_start();
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if (isset($_POST['btnLogin'])) {
-        $uname=$_POST['txtusername'];
-        $pwd=$_POST['txtpassword'];
-        //check tbluseraccount if username is existing
-        $sql ="Select * from tbluseraccount where username='".$uname."'";
+        $uname = $_POST['txtusername'];
+        $pwd = $_POST['txtpassword'];
 
-        $result = mysqli_query($connection,$sql);
+        // Use prepared statements for secure querying
+        $sql = "SELECT * FROM tbluseraccount WHERE username = ?";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("s", $uname);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        $count = mysqli_num_rows($result);
-        $row = mysqli_fetch_array($result);
+        $count = $result->num_rows;
 
         if($count == 0){
             echo "<script language='javascript'>
-                            alert('username not existing.');
-                    </script>";
-        }else if((int)password_verify($pwd, $row[3]) == 0) {
-            echo "<script language='javascript'>
-                            alert('Incorrect password');
-                    </script>";
-        }else{
-            $_SESSION['username']=$row[2];
-            $_SESSION['acctid']=$row[0];
-            echo '<script> location.replace("homepage.php"); </script>';
+                    alert('Username not existing.');
+                  </script>";
+        } else {
+            $row = $result->fetch_assoc();
+            $hashed_password = $row['password']; // Make sure this matches the actual column name for password in your database
+            $usertype = $row['usertype']; // Make sure this matches the actual column name for usertype
+
+            if(!password_verify($pwd, $hashed_password)) {
+                echo "<script language='javascript'>
+                        alert('Incorrect password');
+                      </script>";
+            } else {
+                $_SESSION['username'] = $row['username'];
+                $_SESSION['acctid'] = $row['id']; // Adjust the column name if different
+                
+                if ($usertype == 1) {
+                    echo '<script> location.replace("admin_homepage.php"); </script>';
+                } else {
+                    echo '<script> location.replace("homepage.php"); </script>';
+                }
+                exit();
+            }
         }
     }
 }

@@ -30,7 +30,7 @@
             $total_users = $total_users_result->fetch_assoc()['total_users'];
 
             echo '<div style="text-align: center; margin: auto;">';
-            echo "<h5>Total Number of Users</h5>";
+            echo "<h5>Total Number of <a href=".'userlist.php'.">Users<a/></h5>";
             echo '<h1 style="text-align: center; font-size: 90px">'.$total_users.'</h1>';
             echo '</div>';
             echo '<img src="images/gender.png" width="300px" height="117px" style="display: block;
@@ -54,7 +54,7 @@
             $total_reviews = $total_reviews_result->fetch_assoc()['total_reviews'];
 
             echo '<div style="text-align: center; margin: auto;">';
-            echo "<h5>Total Number of Reviews</h5>";
+            echo "<h5>Total Number of ".'<a href="reviews.php">Reviews</a>'."</h5>";
             echo '<h1 style="text-align: center; font-size: 90px">'.$total_reviews.'</h1>';
             echo '</div>';
 
@@ -83,6 +83,31 @@
             echo '<table class="table table-striped table-bordered table-sm">';
             echo '<tr><th>Username</th><th>Review Count</th></tr>';
             while ($row = $reviews_by_users_result->fetch_assoc()) {
+                echo '<tr><td>' . $row['username'] . '</td><td>' . $row['count'] . '</td></tr>';
+            }
+            echo '</table>';
+
+            // Total number of entries
+            $total_entries_query = "SELECT COUNT(*) as total_entries FROM tblentry WHERE isDeleted = 0";
+            $total_entries_result = $mysqli->query($total_entries_query) or die($mysqli->error);
+            $total_entries = $total_entries_result->fetch_assoc()['total_entries'];
+
+            echo '<div style="text-align: center; margin: auto;">';
+            echo "<h5>Total Number of ".'<a href="entries.php">Entries<a/>'."</h5>";
+            echo '<h1 style="text-align: center; font-size: 90px">'.$total_entries.'</h1>';
+            echo '</div>';
+
+            echo '<img src="images/country_review.png" width="650px" height="650px" style="display: block;
+            margin-left: auto;
+            margin-right: auto;">';
+
+            // Number of entries by users
+            $entries_by_users_query = "SELECT ua.username, COUNT(*) as count FROM tblentry rl JOIN tbluseraccount ua ON rl.acctid = ua.acctid WHERE rl.isDeleted = 0 GROUP BY ua.username";
+            $entries_by_users_result = $mysqli->query($entries_by_users_query) or die($mysqli->error);
+
+            echo '<table class="table table-striped table-bordered table-sm">';
+            echo '<tr><th>Username</th><th>Enrty Count</th></tr>';
+            while ($row = $entries_by_users_result->fetch_assoc()) {
                 echo '<tr><td>' . $row['username'] . '</td><td>' . $row['count'] . '</td></tr>';
             }
             echo '</table>';
