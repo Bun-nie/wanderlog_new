@@ -54,7 +54,7 @@ function SignUp()
     if($row == 0){
         $sql1 ="Insert into tbluserprofile(firstname,lastname,gender,birthdate) values('".$fname."','".$lname."','".$gender."','".$bdate."')";
         mysqli_query($connection,$sql1);
-        $sql ="Insert into tbluseraccount(emailadd,username,password,usertype) values('".$email."','".$uname."','".$pword."','1')";
+        $sql ="Insert into tbluseraccount(emailadd,username,password) values('".$email."','".$uname."','".$pword."')";
         mysqli_query($connection,$sql);
         echo "<script language='javascript'>
 						alert('New record saved.');

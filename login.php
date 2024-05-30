@@ -55,9 +55,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                             alert('Incorrect password');
                     </script>";
         }else{
-            $_SESSION['username']=$row[2];
-            $_SESSION['acctid']=$row[0];
-            echo '<script> location.replace("homepage.php"); </script>';
+            $sql1 ="Select * from tbluseraccount where username='".$uname."'";
+            $result = mysqli_query($connection,$sql);
+            if(mysqli_num_rows($result) == 1){
+                $row = mysqli_fetch_array($result);
+                if($row['usertype'] == 1){
+                    $_SESSION['username']=$row[2];
+                    $_SESSION['acctid']=$row[0];
+                    echo '<script> location.replace("admin_homepage.php"); </script>';
+                }
+            } else {
+                $_SESSION['username']=$row[2];
+                $_SESSION['acctid']=$row[0];
+                echo '<script> location.replace("homepage.php"); </script>';
+            }
+
         }
     }
 }
