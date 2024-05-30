@@ -2,6 +2,7 @@
 require_once 'includes/index_header.php';
 include 'connect.php';
 include 'api.php';
+session_start();
 ?>
     <!DOCTYPE html>
     <html lang="en">
