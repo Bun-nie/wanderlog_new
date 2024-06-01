@@ -15,7 +15,7 @@
     <div>
         <?php
         $mysqli = new mysqli('localhost', 'root', '', 'dbwanderlog') or die(mysqli_error($mysqli));
-        $resultset = $mysqli->query("SELECT * from tbluserprofile") or die($mysqli->error);
+        $resultset = $mysqli->query("SELECT * from tbluserprofile profile INNER JOIN tbluseraccount account ON account.acctid = profile.userid where isBanned = 0") or die($mysqli->error);
         ?>
         <table id="tblUserProfiles" class="table table-striped table-bordered table-sm">
             <thead>
@@ -37,14 +37,78 @@
                     <td><?php echo $row['gender'] ?></td>
                     <td><?php echo $row['birthdate'] ?></td>
                     <td>
-                        <button class="btnDeleteUser" data-userid="<?php echo $row['userid'] ?>">BAN</button>
+                        <?php
+                        echo '<form method="post" id="'.$row["userid"].'">
+                                <input type="hidden" name="userid" value="'.$row["userid"].'"/>
+                                <input type="submit" name="btnDelete" class="button" value="BAN"/>
+                                </form>';
+                        ?>
                     </td>
                 </tr>
                 <?php endwhile; ?>
+                <?php
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btnDelete'])){
+                    if(isset($_POST['btnDelete'])){
+                        $id = $_POST["userid"];
+                        $query = "UPDATE tbluseraccount SET isBanned = 1 WHERE acctid = $id";
+                        $mysqli->query($query);
+                    }
+                }
+                ?>
             </tbody>
         </table>
+
+        <h5>List of User Accounts Banned</h5>
+        <div>
+            <?php
+            $mysqli = new mysqli('localhost', 'root', '', 'dbwanderlog') or die(mysqli_error($mysqli));
+            $resultset = $mysqli->query("SELECT * from tbluserprofile profile INNER JOIN tbluseraccount account ON account.acctid = profile.userid where isBanned = 1") or die($mysqli->error);
+            ?>
+            <table id="tblUserProfiles" class="table table-striped table-bordered table-sm">
+                <thead>
+                <tr>
+                    <th>Account ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Gender</th>
+                    <th>Birthdate</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php while($row = $resultset->fetch_assoc()): ?>
+                    <tr>
+                        <td><?php echo $row['userid'] ?></td>
+                        <td><?php echo $row['firstname'] ?></td>
+                        <td><?php echo $row['lastname'] ?></td>
+                        <td><?php echo $row['gender'] ?></td>
+                        <td><?php echo $row['birthdate'] ?></td>
+                        <td>
+                            <?php
+                            echo '<form method="post" id="'.$row["userid"].'">
+                                <input type="hidden" name="userid" value="'.$row["userid"].'"/>
+                                <input type="submit" name="btnDelete" class="button" value="BAN"/>
+                                </form>';
+                            ?>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+                <?php
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btnDelete'])){
+                    if(isset($_POST['btnDelete'])){
+                        $id = $_POST["userid"];
+                        $query = "UPDATE tbluseraccount SET isBanned = 1 WHERE acctid = $id";
+                        $mysqli->query($query);
+                    }
+                }
+                ?>
+                </tbody>
+            </table>
+
     </div>
 </div>
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
