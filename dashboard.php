@@ -137,6 +137,7 @@ require_once 'includes/user_header.php';
                             $query = "UPDATE tblreviewlocation set isDeleted = 1 where reviewid=$id";
                             $mysqli->query($query);
                         }
+                        echo '<script> location.replace("dashboard.php"); </script>';
                     }
                 ?>
                 <?php

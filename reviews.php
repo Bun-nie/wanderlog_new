@@ -43,7 +43,7 @@ session_start();
                     $mysqli = new mysqli('localhost', 'root','','dbwanderlog');
                     $reviews = $mysqli->query("SELECT * from tblreviewlocation entry INNER JOIN tbluseraccount as ua ON entry.acctid = ua.acctid") or die($mysqli->error);
                     foreach($reviews as $review){
-                        if($review['username'] === $_SESSION['username'] && $review['isDeleted'] == 0){
+                        if($review['isDeleted'] == 0){
                            
                             echo '<div style="margin: 10px; text-align: center; display: inline-block; line-height: 10px; width: 400px; height: 300px; border: 1px solid black; margin-top: 1.5%; padding: 10px; border-radius: 10px; background-color: white">
                                 <h2 style="color: #b67352"><b>'.$review['username'].'</b></h2>
@@ -73,6 +73,7 @@ session_start();
                             $query = "UPDATE tblreviewlocation set isDeleted = 1 where reviewid=$id";
                             $mysqli->query($query);
                         }
+                        echo '<script> location.replace("reviews.php"); </script>';
                     }
                 ?>
                 <?php
@@ -108,7 +109,7 @@ session_start();
                         $mysqli->query($query);
                        
                         // Redirect back to the page where reviews are displayed
-                        echo '<script> location.replace("dashboard.php"); </script>';
+                        echo '<script> location.replace("reviews.php"); </script>';
                         exit();
                     }
                 ?>

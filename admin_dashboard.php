@@ -137,6 +137,7 @@ session_start();
                     $query = "UPDATE tblreviewlocation set isDeleted = 1 where reviewid=$id";
                     $mysqli->query($query);
                 }
+                echo '<script> location.replace("admin_dashboard.php"); </script>';
             }
             ?>
             <?php
@@ -172,7 +173,7 @@ session_start();
                 $mysqli->query($query);
 
                 // Redirect back to the page where reviews are displayed
-                echo '<script> location.replace("dashboard.php"); </script>';
+                echo '<script> location.replace("admin_dashboard.php"); </script>';
                 exit();
             }
             ?>
@@ -236,7 +237,7 @@ session_start();
                 $id = $_POST["id"];
                 $query = "DELETE from tblentry where entryid=$id";
                 $mysqli->query($query);
-                echo '<script> location.replace("dashboard.php"); </script>';
+                echo '<script> location.replace("admin_dashboard.php"); </script>';
             }
             if (isset($_POST['btnUpdateEntry'])){
                 $id = $_POST["id"];
@@ -256,7 +257,7 @@ session_start();
                 $updatedContent = $_POST['updateContent'];
                 $query1 = "UPDATE tblentry SET entrycontent = '$updatedContent' where entryid = $id";
                 $mysqli->query($query1);
-                echo '<script> location.replace("dashboard.php"); </script>';
+                echo '<script> location.replace("admin_dashboard.php"); </script>';
                 exit();
             }
             ?>
