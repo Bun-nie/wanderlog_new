@@ -46,32 +46,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $stmt->execute();
         $result = $stmt->get_result();
 
-        $count = $result->num_rows;
+        if ($result->num_rows == 0) {
+            echo "<script language='javascript'>
+                    alert('Username not existing.');
+                  </script>";
+        } else {
+            $row = $result->fetch_assoc();
+            $hashed_password = $row['password']; // Ensure this matches the actual column name for password in your database
+            $usertype = $row['usertype']; // Ensure this matches the actual column name for usertype
 
-        if($count == 0){
-            echo "<script language='javascript'>
-                            alert('username not existing.');
-                    </script>";
-        }else if((int)password_verify($pwd, $row[3]) == 0) {
-            echo "<script language='javascript'>
-                            alert('Incorrect password');
-                    </script>";
-        }else{
-            $sql1 ="Select * from tbluseraccount where username='".$uname."'";
-            $result = mysqli_query($connection,$sql);
-            if(mysqli_num_rows($result) == 1){
-                $row = mysqli_fetch_array($result);
-                if($row['usertype'] == 1){
-                    $_SESSION['username']=$row[2];
-                    $_SESSION['acctid']=$row[0];
-                    echo '<script> location.replace("admin_homepage.php"); </script>';
-                }
+            if (!password_verify($pwd, $hashed_password)) {
+                echo "<script language='javascript'>
+                        alert('Incorrect password');
+                      </script>";
             } else {
-                $_SESSION['username']=$row[2];
-                $_SESSION['acctid']=$row[0];
-                echo '<script> location.replace("homepage.php"); </script>';
+                $_SESSION['username'] = $row['username'];
+                $_SESSION['acctid'] = $row['acctid']; // Adjust the column name if different
+                
+                if ($usertype == 1) {
+                    echo '<script> location.replace("admin_homepage.php"); </script>';
+                } else {
+                    echo '<script> location.replace("homepage.php"); </script>';
+                }
+                exit();
             }
-
         }
     }
 }

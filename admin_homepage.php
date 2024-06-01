@@ -106,7 +106,7 @@
             $entries_by_users_result = $mysqli->query($entries_by_users_query) or die($mysqli->error);
 
             echo '<table class="table table-striped table-bordered table-sm">';
-            echo '<tr><th>Username</th><th>Enrty Count</th></tr>';
+            echo '<tr><th>Username</th><th>Entry Count</th></tr>';
             while ($row = $entries_by_users_result->fetch_assoc()) {
                 echo '<tr><td>' . $row['username'] . '</td><td>' . $row['count'] . '</td></tr>';
             }

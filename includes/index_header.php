@@ -27,9 +27,6 @@
         <li>
             <a class="nav-link px-2 link-body-emphasis" aria-current="page" href="contact.php" style="color: #B67352">Contact Us</a>
         </li>
-        <li>
-            <a class="nav-link px-2 link-body-emphasis" href="review.php" style="color: #B67352">Reviews</a>
-        </li>
     </ul>
 
     <form method="POST" class="col-md-3 text-end" style="margin-right: 100px">
