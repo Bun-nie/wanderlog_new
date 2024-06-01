@@ -24,6 +24,7 @@ include('connect.php');
         $mysqli = new mysqli('localhost', 'root','','dbwanderlog');
         $entries = $mysqli->query("SELECT * from tblentry entry INNER JOIN tbluseraccount as ua ON entry.acctid = ua.acctid") or die($mysqli->error);
             foreach($entries as $entry){
+                if($entry['isDeleted'] == 0){
                 echo '<div style="margin: 10px; text-align: center; display: inline-block; line-height: 10px; width: 400px; height: 300px; border: 1px solid black; margin-top: 1.5%; padding: 10px; border-radius: 10px; background-color: white">
                                 <h2 style="color: #b67352"><b>'.$entry['username'].'</b></h2>
                                   <p style="font-size: 15px">'.$entry['entrycontent'].'</p>
@@ -40,7 +41,7 @@ include('connect.php');
                                 <input type="submit" name="btnEdit" class="button" value="Edit"/>
                                 </form>';  
                             echo '</div>';
-            
+                }
             }
         ?>
         <?php
