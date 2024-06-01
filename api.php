@@ -21,7 +21,7 @@ function logIn()
     }else if(password_verify($pwd, $row[3])) {
         $_SESSION['username']=$row[2];
         $_SESSION['acctid']=$row[0];
-        echo '<script> location.replace("homepage.php"); </script>';
+        header("location: landingpage.php");
     }else{
         echo "<script language='javascript'>
 						alert('Incorrect password');
@@ -39,10 +39,13 @@ function SignUp()
     $gender=$_POST['txtgender'];
     $bdate=$_POST['txtbdate'];
 
+
     //for tbluseraccount
     $email=$_POST['txtemail'];
     $uname=$_POST['txtuname'];
     $pword=password_hash($_POST['txtpassword'],PASSWORD_DEFAULT);
+
+
 
     //Check tbluseraccount if username is already existing. Save info if false. Prompt msg if true.
     $sql2 ="Select * from tbluseraccount where username='".$uname."'";
@@ -51,7 +54,7 @@ function SignUp()
     if($row == 0){
         $sql1 ="Insert into tbluserprofile(firstname,lastname,gender,birthdate) values('".$fname."','".$lname."','".$gender."','".$bdate."')";
         mysqli_query($connection,$sql1);
-        $sql ="Insert into tbluseraccount(emailadd,username,password,usertype) values('".$email."','".$uname."','".$pword."','0')";
+        $sql ="Insert into tbluseraccount(emailadd,username,password) values('".$email."','".$uname."','".$pword."')";
         mysqli_query($connection,$sql);
         echo "<script language='javascript'>
 						alert('New record saved.');

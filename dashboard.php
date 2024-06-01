@@ -1,5 +1,6 @@
 <?php
-    require_once 'includes/user_header.php';
+global $connection;
+require_once 'includes/user_header.php';
     include 'connect.php';
     session_start();
 ?>
@@ -188,11 +189,11 @@
                     <label for="entryContent" style="color: #b67352">What is your thoughts?</label>
                     <textarea name="entryContent" id=entryContent rows="4" cols="40" style="line-height: 20px; border-radius: 30px; padding: 10px"></textarea>
                     <br>
-                    <button type="submit" class="btn btn-primary" name="btnPost" value="Post" style="margin: auto; width: 360px; border-color: #b67352; background-color: white; color: #b67352; border-radius: 30px"><b>POST ENTRY</b></button>
+                    <button type="submit" class="btn btn-primary" name="btnPostEntry" value="Post" style="margin: auto; width: 360px; border-color: #b67352; background-color: white; color: #b67352; border-radius: 30px"><b>POST ENTRY</b></button>
                 </form>
                 <?php
                     if (isset($_POST['entryContent'])){
-                        if(isset($_POST['btnPost'])){		
+                        if(isset($_POST['btnPostEntry'])){
                             //retrieve data from form and save the value to a variable
                             $entryContent = $_POST['entryContent'];
                             $currAcc = $_SESSION['acctid'];
@@ -203,29 +204,6 @@
                         }
                     }
                 ?>
-                <!--<div>
-                    <hr style="width: 75%; border-color: white; margin: auto;">
-                    <h4 style="color: white; margin-top: 10px;"><b>USER STATS</b></h4>
-                    <hr style="width: 75%; border-color: white; margin: auto;">
-                    <?php
-                        //$query = "SELECT username,COUNT(*) as entrycount from tblentry entry INNER JOIN tbluseraccount as ua ON entry.acctid = ua.acctid group by entry.acctid";
-                        //$result = mysqli_query($connection,$query);
-                    ?>
-                    <table class="table table-striped table bordered table-sm" style="font-family: 'Century Gothic';">
-                        <thead>
-                        <tr>
-                            <th style="color: #b67352">Total Entries</th>
-                            <?php
-                            // while($row = mysqli_fetch_assoc($result)){
-                            //     if($row['username'] == $_SESSION['username']){
-                            //         echo "<th style='color: #b67352'>".$row['entrycount']."</th>";
-                            //     }
-                            // }
-                            ?>
-                        </tr>
-                        </thead>
-                    </table>
-                </div>-->
             </div>
             <div style="background-color: #b67352; border-radius: 30px">
                 <hr style="width: 75%; border-color: white; margin: auto;">
@@ -245,22 +223,22 @@
                                 <hr style="width: 75%; border-color: black; margin: auto;"> 
                                 <form method="post" id="delete-'.$entry["entryid"].'">
                                 <input type="hidden" name="id" value="'.$entry["entryid"].'"/>
-                                <input type="submit" name="btnUpdate" class="button" value="Update"/>
+                                <input type="submit" name="btnUpdateEntry" class="button" value="Update"/>
                                 <br>
                                 <br>
-                                <input type="submit" name="btnDelete" class="button" value="Delete"/>
+                                <input type="submit" name="btnDeleteEntry" class="button" value="Delete"/>
                                 </form>';  
                             echo '</div>';
                         }
                     }
 
-                    if (isset($_POST['btnDelete'])){
+                    if (isset($_POST['btnDeleteEntry'])){
                         $id = $_POST["id"];
                         $query = "DELETE from tblentry where entryid=$id";
                         $mysqli->query($query);
                         echo '<script> location.replace("dashboard.php"); </script>';
                     }
-                    if (isset($_POST['btnUpdate'])){
+                    if (isset($_POST['btnUpdateEntry'])){
                         $id = $_POST["id"];
                         $result = $mysqli->query("SELECT * FROM tblentry WHERE entryid = $id");
                         $entry = $result->fetch_assoc();
@@ -268,12 +246,12 @@
                                 <input type="hidden" name="id" value="'.$entry['entryid'].'"/>
                                 <textarea name="updateContent" id=updateContent rows="4" cols="40" style="line-height: 20px; border-radius: 30px; padding: 10px">'.$entry['entrycontent'].'</textarea>
                                 <br>
-                                <button type="submit" class="btn btn-primary" name="btnOK" style="margin: auto; width: 360px; border-color: #b67352; background-color: white; color: #b67352; border-radius: 30px"><b>UPDATE ENTRY</b></button>
+                                <button type="submit" class="btn btn-primary" name="btnOKEntry" style="margin: auto; width: 360px; border-color: #b67352; background-color: white; color: #b67352; border-radius: 30px"><b>UPDATE ENTRY</b></button>
                                 </form>';
                         
                         
                     }
-                    if(isset($_POST['btnOK'])){
+                    if(isset($_POST['btnOKEntry'])){
                         $id = $_POST["id"];
                         $updatedContent = $_POST['updateContent'];
                         $query1 = "UPDATE tblentry SET entrycontent = '$updatedContent' where entryid = $id";
