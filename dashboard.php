@@ -214,7 +214,7 @@ require_once 'includes/user_header.php';
                     $mysqli = new mysqli('localhost', 'root','','dbwanderlog');
                     $entries = $mysqli->query("SELECT * from tblentry entry INNER JOIN tbluseraccount as ua ON entry.acctid = ua.acctid") or die($mysqli->error);
                     foreach($entries as $entry){
-                        if($entry['username'] === $_SESSION['username']){
+                        if($entry['username'] === $_SESSION['username'] && $entry['isDeleted'] == 0){
                             
                             echo '<div style="display: inline-block; line-height: 10px; width: 300px; height: 300px; border: 1px solid black; margin-top: 1.5%; padding: 10px; border-radius: 10px; background-color: white">
                                 <h3 style="color: #b67352"><b>'.$entry['username'].'</b></h3>
@@ -235,7 +235,7 @@ require_once 'includes/user_header.php';
 
                     if (isset($_POST['btnDeleteEntry'])){
                         $id = $_POST["id"];
-                        $query = "DELETE from tblentry where entryid=$id";
+                        $query = "UPDATE tblentry set isDeleted = 1 where entryid=$id";
                         $mysqli->query($query);
                         echo '<script> location.replace("dashboard.php"); </script>';
                     }
@@ -255,8 +255,12 @@ require_once 'includes/user_header.php';
                     if(isset($_POST['btnOKEntry'])){
                         $id = $_POST["id"];
                         $updatedContent = $_POST['updateContent'];
-                        $query1 = "UPDATE tblentry SET entrycontent = '$updatedContent' where entryid = $id";
-                        $mysqli->query($query1);
+                        $stmt = $mysqli->prepare("UPDATE tblentry SET entrycontent = ? WHERE entryid = ?");
+                        if ($stmt === false) {
+                            die('Prepare failed: ' . htmlspecialchars($mysqli->error));
+                        }
+                        $stmt->bind_param('si', $updatedContent, $id);
+                        $stmt->execute();
                         echo '<script> location.replace("dashboard.php"); </script>';
                         exit();
                     }
