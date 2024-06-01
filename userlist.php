@@ -53,7 +53,9 @@
                         $query = "UPDATE tbluseraccount SET isBanned = 1 WHERE acctid = $id";
                         $mysqli->query($query);
                     }
+                    echo '<script> location.replace("userlist.php"); </script>';
                 }
+
                 ?>
             </tbody>
         </table>
@@ -87,19 +89,20 @@
                             <?php
                             echo '<form method="post" id="'.$row["userid"].'">
                                 <input type="hidden" name="userid" value="'.$row["userid"].'"/>
-                                <input type="submit" name="btnDelete" class="button" value="BAN"/>
+                                <input type="submit" name="btnUnban" class="button" value="UNBAN"/>
                                 </form>';
                             ?>
                         </td>
                     </tr>
                 <?php endwhile; ?>
                 <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btnDelete'])){
-                    if(isset($_POST['btnDelete'])){
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btnUnban'])){
+                    if(isset($_POST['btnUnban'])){
                         $id = $_POST["userid"];
-                        $query = "UPDATE tbluseraccount SET isBanned = 1 WHERE acctid = $id";
+                        $query = "UPDATE tbluseraccount SET isBanned = 0 WHERE acctid = $id";
                         $mysqli->query($query);
                     }
+                    echo '<script> location.replace("userlist.php"); </script>';
                 }
                 ?>
                 </tbody>
