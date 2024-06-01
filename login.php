@@ -54,12 +54,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $row = $result->fetch_assoc();
             $hashed_password = $row['password']; // Ensure this matches the actual column name for password in your database
             $usertype = $row['usertype']; // Ensure this matches the actual column name for usertype
+            $isBanned = $row['isBanned'];
 
             if (!password_verify($pwd, $hashed_password)) {
                 echo "<script language='javascript'>
                         alert('Incorrect password');
                       </script>";
-            } else {
+            } else if($isBanned == 1){
+                echo "<script language='javascript'>
+                        alert('User is Banned. Contact Administrator.');
+                      </script>";
+            }else {
                 $_SESSION['username'] = $row['username'];
                 $_SESSION['acctid'] = $row['acctid']; // Adjust the column name if different
                 
